@@ -1,1 +1,1 @@
-# yulang
+# the otoka programming language
