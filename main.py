@@ -23,6 +23,7 @@ def parser(tokens):
     OUT = "@"
     NPO = "."
     STR = '"'
+    NUP = "~"
     while True:
         if tokens[pc] == "pendp":
             break
@@ -70,6 +71,20 @@ def parser(tokens):
                     else:
                         print("error:The end of str must be closed with double quotes")
                         sys.exit(0)
+            elif tokens[pc] == NUP:
+                # 数を指定してポップ
+                pc += 1
+                if tokens[pc].isdecimal():
+                    try:
+                        ran = int(tokens[pc])
+                        for i in range(ran):
+                            print(stack.pop(),end="")
+                    except:
+                        print(f"Error:{tokens[pc]}")
+                        sys.exit(0)
+                else:
+                    print(f"Error:{tokens[pc]}")
+                    sys.exit(0)
             else:
                 print(f"Error: {tokens[pc]}: No such instruction. Are you stupid?")
                 sys.exit(0)
