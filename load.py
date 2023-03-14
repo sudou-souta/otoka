@@ -2,9 +2,9 @@ import sys
 
 def loader():
     try:
+        filename = sys.argv[1]
         f = open(filename,"r")
         src = f.read()
-        filename = sys.argv[1]
         f.close()
     except:
         print("Yu: open file error")
@@ -13,4 +13,4 @@ def loader():
     tokens.append("pendp")
     return tokens
 
-    
+
