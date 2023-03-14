@@ -1,1 +1,2 @@
-" World " " Hello " ~ 2
+load test.txt
+@

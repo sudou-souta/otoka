@@ -24,6 +24,8 @@ def parser(tokens):
     NPO = "."
     STR = '"'
     NUP = "~"
+    ENT = "`"
+    FIL = "load"
     while True:
         if tokens[pc] == "pendp":
             break
@@ -85,9 +87,24 @@ def parser(tokens):
                 else:
                     print(f"Error:{tokens[pc]}")
                     sys.exit(0)
+            elif tokens[pc] == ENT:
+                # 改行
+                print()
+                pc += 1
+            elif tokens[pc] == FIL:
+                # ファイルロード
+                pc += 1
+                try:
+                    f = open(tokens[pc],"r")
+                    text = f.read()
+                    f.close()
+                except:
+                    print(f"Error:load:{tokens[pc]}")
+                    sys.exit(0)
+                stack.append(text)
+                pc += 1
             else:
                 print(f"Error: {tokens[pc]}: No such instruction. Are you stupid?")
                 sys.exit(0)
 tokens = loader()
-print("fileload: OK")
 parser(tokens)
