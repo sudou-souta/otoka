@@ -31,35 +31,55 @@ def parser(tokens):
             break
         else:
             if tokens[pc].isdecimal():
-                stack.append(int(tokens[pc]))
-                pc += 1
+                try:
+                    stack.append(int(tokens[pc]))
+                    pc += 1
+                except:
+                    print(f"Error:{tokens[pc]}")
+                    sys.exit(0)
             elif tokens[pc] == OUT:
                 # output
-                print(stack.pop())
-                pc += 1
+                try:
+                    print(stack.pop())
+                    pc += 1
+                except:
+                    print(f"Error:@:{tokens[pc]}")
+                    sys.exit(0)
             elif tokens[pc] == NPO:
                 # out without popping from the stack
-                print(stack[len(stack)-1])
-                pc += 1
+                try:
+                    print(stack[len(stack)-1])
+                    pc += 1
+                except:
+                    print(f"Error:.:{tokens[pc]}")
             elif tokens[pc] == ADD:
                 # ADD
-                stack.append(stack.pop()+stack.pop())
-                pc += 1
+                try:
+                    stack.append(stack.pop()+stack.pop())
+                    pc += 1
+                except:
+                    print(f"Error:+:{tokens[pc]}")
             elif tokens[pc] == SUB:
                 # SUB
-                stack.append(stack.pop()-stack.pop())
-                pc += 1
+                try:
+                    stack.append(stack.pop()-stack.pop())
+                    pc += 1
+                except:
+                    print(f"Error:-;{tokens[pc]}")
             elif tokens[pc] == MUL:
                 # MUL
-                stack.append(stack.pop()*stack.pop())
-                pc += 1
+                try:
+                    stack.append(stack.pop()*stack.pop())
+                    pc += 1
+                except:
+                    print(f"Error:*:{tokens[pc]}")
             elif tokens[pc] == DIV:
                 # DIV
                 try:
                     stack.append(stack.pop() / stack.pop())
                     pc += 1
                 except  ZeroDivisionError:
-                    print(f"ZeroDivisionError:{tokens[pc]}")
+                    print(f"Error:/:{tokens[pc]}")
                     sys.exit(0)
             elif tokens[pc] ==  STR:
                 pc += 1
