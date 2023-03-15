@@ -1,5 +1,17 @@
 import sys
 
+def at(stack):
+    return stack.pop()
+def ten(stack):
+    return stack[len(stack)-1]
+def add(stack):
+    return stack.pop() + stack.pop()
+def sub(stack):
+    return stack.append(stack.pop()-stack.pop())
+def mul(stack):
+    return stack.append(stack.pop()*stack.pop())
+def div(stack):
+    return stack.append(stack.pop() / stack.pop())
 def parser(tokens):
     pc = 0
     stack = []
@@ -28,7 +40,7 @@ def parser(tokens):
             elif tokens[pc] == OUT:
                 # output
                 try:
-                    print(stack.pop())
+                    print(at(stack))
                     pc += 1
                 except:
                     print(f"Error:@:{tokens[pc]}")
@@ -36,35 +48,35 @@ def parser(tokens):
             elif tokens[pc] == NPO:
                 # out without popping from the stack
                 try:
-                    print(stack[len(stack)-1])
+                    print(ten(stack))
                     pc += 1
                 except:
                     print(f"Error:.:{tokens[pc]}")
             elif tokens[pc] == ADD:
                 # ADD
                 try:
-                    stack.append(stack.pop()+stack.pop())
+                    add(stack)
                     pc += 1
                 except:
                     print(f"Error:+:{tokens[pc]}")
             elif tokens[pc] == SUB:
                 # SUB
                 try:
-                    stack.append(stack.pop()-stack.pop())
+                    sub(stack)
                     pc += 1
                 except:
                     print(f"Error:-;{tokens[pc]}")
             elif tokens[pc] == MUL:
                 # MUL
                 try:
-                    stack.append(stack.pop()*stack.pop())
+                    mul(stack)
                     pc += 1
                 except:
                     print(f"Error:*:{tokens[pc]}")
             elif tokens[pc] == DIV:
                 # DIV
                 try:
-                    stack.append(stack.pop() / stack.pop())
+                    div(stack)
                     pc += 1
                 except  ZeroDivisionError:
                     print(f"Error:/:{tokens[pc]}")
