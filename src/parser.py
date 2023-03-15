@@ -5,7 +5,7 @@ def at(stack):
 def ten(stack):
     return stack[len(stack)-1]
 def add(stack):
-    return stack.pop() + stack.pop()
+    return stack.append(stack.pop() + stack.pop())
 def sub(stack):
     return stack.append(stack.pop()-stack.pop())
 def mul(stack):
