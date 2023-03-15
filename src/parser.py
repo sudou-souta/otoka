@@ -12,9 +12,19 @@ def mul(stack):
     return stack.append(stack.pop()*stack.pop())
 def div(stack):
     return stack.append(stack.pop() / stack.pop())
+def load(stack,filename):
+    f = open(filename,"r")
+    text = f.read()
+    f.close()
+    return text
+
 def parser(tokens):
     pc = 0
     stack = []
+    stan_func = {
+        "@":"at",
+        ".":"ten",
+    }
     ADD = "+"
     SUB = "-"
     MUL = "*"
@@ -115,9 +125,7 @@ def parser(tokens):
                 # file load
                 pc += 1
                 try:
-                    f = open(tokens[pc],"r")
-                    text = f.read()
-                    f.close()
+                    text = load(stack,tokens[pc])
                 except:
                     print(f"Error:load:{tokens[pc]}")
                     sys.exit(0)
