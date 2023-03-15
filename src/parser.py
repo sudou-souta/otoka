@@ -13,6 +13,7 @@ def parser(tokens):
     NUP = "~"
     ENT = "`"
     FIL = "load"
+    IF = "if"
     while True:
         if tokens[pc] == "pendp":
             break
@@ -99,7 +100,7 @@ def parser(tokens):
                 print()
                 pc += 1
             elif tokens[pc] == FIL:
-                # ファイルロード
+                # file load
                 pc += 1
                 try:
                     f = open(tokens[pc],"r")
@@ -110,6 +111,43 @@ def parser(tokens):
                     sys.exit(0)
                 stack.append(text)
                 pc += 1
+            elif tokens[pc] == IF:
+                pc += 1
+                if tokens[pc].isdecimal():
+                    num = int(tokens[pc])
+                    pc += 1
+                    if tokens[pc] == "=":
+                        pc += 1
+                        if tokens[pc].isdecimal():
+                            num2 = int(tokens[pc])
+                            if num == num2:
+                                # true
+                                pc += 1
+                            else:
+                                # false:
+                                while True:
+                                    if tokens[pc] == ";":
+                                        pc += 1
+                                        break
+                                    else:
+                                        pc += 1
+                        else:
+                            # 数字と文字が一緒なわけないのでfalse
+                            while True:
+                                if tokens[pc] == ";":
+                                    pc += 1
+                                    break
+                                else:
+                                    pc += 1
+                    else:
+                        print(f"Error:if:{tokens[pc]}")
+                        sys.exit(0)
+                else:
+                    print(f"Error:if:{tokens[pc]}")
+                    sys.exit(0)
+            elif tokens[pc] == ";":
+                pc += 1
             else:
                 print(f"Error: {tokens[pc]}: No such instruction. Are you stupid?")
                 sys.exit(0)
+
