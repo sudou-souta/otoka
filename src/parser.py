@@ -147,6 +147,14 @@ def parser(tokens):
                     sys.exit(0)
             elif tokens[pc] == ";":
                 pc += 1
+            elif tokens[pc] == "?":
+                # comment
+                while True:
+                    if tokens[pc] == ";":
+                        pc += 1
+                        break
+                    else:
+                        pc += 1
             else:
                 print(f"Error: {tokens[pc]}: No such instruction. Are you stupid?")
                 sys.exit(0)
